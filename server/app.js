@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRoutes.js";
+import productRouter from "./routes/productRoutes.js";
+import wishlistRouter from "./routes/wishlistRoute.js";
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRouter);
+app.use("/api/product", productRouter);
+app.use("/api/wishlist", wishlistRouter);
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).json({
