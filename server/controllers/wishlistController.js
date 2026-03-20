@@ -25,6 +25,7 @@ export const getWishlistProducts = asyncHandler(async (req, res, next) => {
         v?.color?.toLowerCase() === item?.color?.toLowerCase()
     );
 
+    // Select Size
     let selectedSize = null;
     if(selectedVariant || item.size){
       selectedSize = selectedVariant?.sizes?.find(
@@ -56,6 +57,7 @@ export const getWishlistProducts = asyncHandler(async (req, res, next) => {
   });
 });
 
+// ----------------- TOGGLE WISHLIST PRODUCTS -----------------
 export const toggleWishlistProduct = asyncHandler(async (req, res, next) => {
   // Destructure fields
   const { id, size, color } = req.body;

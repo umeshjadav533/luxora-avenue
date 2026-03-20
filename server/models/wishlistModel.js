@@ -18,10 +18,12 @@ const wishlistSchema = new mongoose.Schema(
         size: {
           type: String,
           default: null,
+          lowercase: true
         },
         color: {
           type: String,
           default: null,
+          lowercase: true
         },
       },
     ],

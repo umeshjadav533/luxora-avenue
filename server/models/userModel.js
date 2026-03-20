@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 2,
       maxlength: 50,
+      lowercase: true
     },
     last_name: {
       type: String,
@@ -18,6 +19,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 2,
       maxlength: 50,
+      lowercase: true
     },
     email: {
       type: String,

@@ -18,10 +18,12 @@ const cartSchema = new mongoose.Schema(
         size: {
           type: String,
           default: null,
+          lowercase: true,
         },
         color: {
           type: String,
           default: null,
+          lowercase: true,
         },
         quantity: {
           type: Number,

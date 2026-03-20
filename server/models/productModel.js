@@ -7,11 +7,13 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Title is required"],
       trim: true,
+      lowercase: true,
     },
 
     description: {
       type: String,
       trim: true,
+      lowercase: true,
     },
 
     category: {
@@ -34,6 +36,7 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
       index: true,
+      lowercase: true
     },
 
     sku: {
@@ -57,6 +60,7 @@ const productSchema = new mongoose.Schema(
           type: String,
           required: true,
           trim: true,
+          lowercase: true,
         },
 
         images: [
@@ -104,6 +108,7 @@ const productSchema = new mongoose.Schema(
     tags: {
       type: [String],
       default: [],
+      lowercase: true,
     },
 
     onSale: {
