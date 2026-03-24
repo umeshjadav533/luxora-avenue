@@ -28,7 +28,7 @@ export default function NavigationBar() {
   return (
     <div
       id="navbar"
-      className={`w-[97%] h-12 z-50 fixed top-11 left-1/2 -translate-x-1/2 bg-white px-5 flex justify-between items-center transition-transform duration-300 shadow ${show ? "translate-y-0" : "-translate-y-30"} ${hoverLink ? "rounded-t-xl rounded-b-none" : "rounded-xl"}`}
+      className={`w-[97%] h-12 z-50 fixed top-13.5 left-1/2 -translate-x-1/2 bg-white px-5 flex justify-between items-center transition-transform duration-300 shadow ${show ? "translate-y-0" : "-translate-y-30"} ${hoverLink ? "rounded-t-xl rounded-b-none" : "rounded-xl"}`}
     >
       {/* Left logo */}
       <div>
