@@ -1,43 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
 import HeroSection from "../components/HeroSection";
+import CategoryProducts from "../components/categoryProducts";
+import NewArrival from "../components/NewArrival";
+import BestSeller from "../components/BestSeller";
 import { useEffect } from "react";
-import { fetchProductsForNavigationLinkPage } from "../features/product/productAPI";
-import { categoryListData } from "../assets/assets";
-import { Link } from "react-router-dom";
+import { fetchAllProducts } from "../features/product/productAPI";
+import ProductCard from "../components/ProductCard";
 
 const HomePage = () => {
-  
+  const { productsData } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAllProducts({ page: 1, limit: 16 }));
+  }, [dispatch]);
+  console.log(productsData?.products);
   return (
     <div className="p-3 mt-8">
       <HeroSection />
-      <ul className="grid grid-cols-4 gap-3 my-5 z-50">
-        {categoryListData &&
-          categoryListData.length > 1 &&
-          categoryListData?.slice(0, 8)?.map((item, index) => (
-            <li
-              key={index}
-              className="group h-105 overflow-hidden rounded-2xl transition-all ease-in-out duration-700 hover:rounded-full relative bg-[#E8E8E1]"
-            >
-              <Link to={`/${item.slug}`} className="block w-full h-full">
-                <img
-                  src={item.image}
-                  alt=""
-                  className="block w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-              </Link>
-
-              <Link
-                to={item.slug}
-                onClick={() => {
-                  dispatch(getAllProductsAsyncThunk({ query: item.slug }));
-                }}
-                className="absolute left-1/2 bottom-5 -translate-x-1/2 px-6 py-1 hover:bg-white hover:text-black rounded-full text-white border-2 border-white font-bold transition-all duration-700 ease-in-out group-hover:bottom-1/2 group-hover:translate-y-1/2 text-sm"
-              >
-                SHOP
-              </Link>
-            </li>
+      <CategoryProducts />
+      <NewArrival />
+      <BestSeller />
+      <div className="grid grid-cols-4 gap-3 my-10">
+        <h3 className="col-span-full text-2xl underline underline-offset-4">Explore More</h3>
+        {productsData?.products &&
+          productsData?.products.map((product) => (
+            <ProductCard product={product} key={product._id} />
           ))}
-      </ul>
+      </div>
     </div>
   );
 };

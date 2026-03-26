@@ -88,48 +88,56 @@ export const categoryListData = [
     category: "men",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197856/menShirt_3_4_lk3rut.webp",
+    bgColor: "#636450",
   },
   {
     productType: "shirt",
     category: "women",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197897/womenShirt_2_2_czodpz.jpg",
+    bgColor: "#696161",
   },
   {
     productType: "t-shirts",
     category: "women",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197930/womenTshirt_2_6_ccq2fn.jpg",
+    bgColor: "#938178",
   },
   {
     productType: "t-shirt",
     category: "men",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197871/menTshirt_3_4_jdbfmt.jpg",
+    bgColor: "#424B5C",
   },
   {
     productType: "shoes",
     category: "men",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197862/menShoes_3_4_ddxlf8.avif",
+    bgColor: "#636450",
   },
   {
     productType: "watch",
     category: "men",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197889/watch_2_3_dyqazk.avif",
+    bgColor: "#696161",
   },
   {
     productType: "perfume",
     category: "men",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197881/perfume_1_4_zdxdk7.jpg",
+    bgColor: "#938178",
   },
   {
     productType: "shoes",
     category: "women",
     image:
       "https://res.cloudinary.com/dosbhrvcz/image/upload/v1768197924/womenShoes_3_7_awosia.avif",
+    bgColor: "#424B5C",
   },
 ];
 

@@ -3,25 +3,25 @@ import createApiThunk from "../../utils/createAsyncThunkHelper";
 export const fetchAllProducts = createApiThunk(
     "all_products",
     "get",
-    (data) => `/products?page=${data.page}&limit=${data.limit}`
+    (data) => `/product?page=${data.page}&limit=${data.limit}`
 );
 
 export const fetchProductById = createApiThunk(
     "product",
     "get",
-    (data) => `/products/${data.id}`
+    (data) => `/product/${data.id}`
 );
 
 export const fetchProductsForNavigationLinkPage = createApiThunk(
     "page_category",
     "get",
-    (data) => `/products/page/${data.category}?page=${data.page}&limit=${data.limit}`
+    (data) => `/product/page/${data.category}?page=${data.page}&limit=${data.limit}`
 );
 
 export const fetchTagProducts = createApiThunk(
     "tag_products",
     "post",
-    (data) => `/products/${data.tag}?page=${data.page}&limit=${data.limit}`
+    (data) => `/product/tag?page=${data.page}&limit=${data.limit}`
 );
 
 export const fetchSearchProducts = createApiThunk(

@@ -128,7 +128,6 @@ export const addToCart = asyncHandler(async (req, res, next) => {
   // send response
   res.status(200).json({
     success: true,
-    message: "Product added to cart",
     cartProducts: formatProductResponse(populatedCart.items || []),
   });
 });
@@ -225,7 +224,6 @@ export const updateCartProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Cart updated successfully",
     cart: formatProductResponse(populatedCart.items || []),
   });
 });
@@ -280,7 +278,6 @@ export const removeCartProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Product removed from cart",
     cart: formatProductResponse(populatedCart.items || []),
   });
 });

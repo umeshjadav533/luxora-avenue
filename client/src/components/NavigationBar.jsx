@@ -57,7 +57,7 @@ export default function NavigationBar() {
           </NavLink>
 
           <div
-            className="men-menu-section p-6 absolute top-12 left-0 w-full grid grid-cols-5 gap-11 bg-linear-to-b from-[#F5F3EE] to-[#ECE9E2] rounded-b-xl border border-[#d6d3cb] shadow-lg">
+            className="men-menu-section p-6 absolute top-12 left-0 w-full grid grid-cols-5 gap-11 bg-[#F5F5F5] rounded-b-xl">
             {menPageMenu.map((menu, index) => (
               <div key={index}>
                 <span
@@ -100,7 +100,7 @@ export default function NavigationBar() {
           </NavLink>
 
           <div
-            className="women-menu-section p-6 absolute top-12 left-0 w-full grid grid-cols-5 gap-11 bg-linear-to-b from-[#F5F3EE] to-[#ECE9E2] rounded-b-xl border border-[#d6d3cb] shadow-lg">
+            className="women-menu-section p-6 absolute top-12 left-0 w-full grid grid-cols-5 gap-11 bg-[#F5F5F5] rounded-b-xl">
             {womenPageMenu.map((menu, index) => (
               <div key={index}>
                 <span
@@ -143,7 +143,7 @@ export default function NavigationBar() {
           </NavLink>
 
           <div
-            className="kids-menu-section p-6 absolute top-12 left-0 w-full grid grid-cols-5 gap-11 bg-linear-to-b from-[#F5F3EE] to-[#ECE9E2] rounded-b-xl border border-[#d6d3cb] shadow-lg">
+            className="kids-menu-section p-6 absolute top-12 left-0 w-full grid grid-cols-5 gap-11 bg-[#F5F5F5] rounded-b-xl">
             {kidsPageMenu.map((menu, index) => (
               <div key={index}>
                 <span

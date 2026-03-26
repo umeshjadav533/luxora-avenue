@@ -3,6 +3,7 @@ import Product from "../models/productModel.js";
 import ErrorHandler from "../middlewares/errorMiddleware.js";
 import mongoose from "mongoose";
 import Wishlist from "../models/wishlistModel.js";
+import formatProductResponse from '../utils/formatProductResponse.js'
 
 // ----------------- GET ALL WISHLIST PRODUCTS -----------------
 export const getWishlistProducts = asyncHandler(async (req, res, next) => {
@@ -53,7 +54,7 @@ export const getWishlistProducts = asyncHandler(async (req, res, next) => {
   
   res.status(200).json({
     success: true,
-    wishlistProducts: wishlist,
+    products: wishlist,
   });
 });
 
@@ -112,8 +113,14 @@ export const toggleWishlistProduct = asyncHandler(async (req, res, next) => {
 
   await userWishlist.save();
 
+  const populatedWishlist = await Wishlist.findById(userWishlist._id).populate({
+    path: "items.product",
+    select: "title description category subCategory brand rating tags variants",
+  });
+
   res.status(200).json({
     success: true,
+    products: formatProductResponse(populatedWishlist.items || [], false),
     message: existingProduct ? "Removed from wishlist" : "Added to wishlist",
   });
 });
