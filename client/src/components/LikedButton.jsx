@@ -14,7 +14,6 @@ const LikedButton = ({ id, size, color }) => {
     dispatch(fetchWishlistProducts());
   }, [dispatch]);
 
-  console.log(wishlistProductsData?.products);
 
   const existingWishlistProduct = wishlistProductsData?.products.find(
     (product) =>

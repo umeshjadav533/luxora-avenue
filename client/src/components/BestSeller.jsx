@@ -6,6 +6,7 @@ import LikedButton from "./LikedButton";
 import { Link } from "react-router-dom";
 import { toggleWishlistProduct } from "../features/wishlist/wishlistAPI";
 import Rating from "./Rating";
+import { addToCartProduct } from "../features/cart/cartAPI";
 
 const BestSeller = () => {
   const { tagProductsData } = useSelector((state) => state.product);
@@ -16,7 +17,7 @@ const BestSeller = () => {
   }, [dispatch]);
 
   if (tagProductsData?.products.length === 0) return null;
-
+  
   return (
     <div className="">
       <h3 className="text-2xl underline underline-offset-5 cursor-pointer my-5">
@@ -46,7 +47,19 @@ const BestSeller = () => {
                 <h4 className="truncate-title">{product?.title}</h4>
                 <div className="flex justify-between">
                   <Rating rating={product?.rating} starSize={15} />
-                  <button className="border-2 px-2 py-1 rounded-md border-black cursor-pointer hover:bg-black hover:text-white transition duration-200">
+                  <button
+                    className="border-2 px-2 py-1 rounded-md border-black cursor-pointer hover:bg-black hover:text-white transition duration-200"
+                    onClick={() =>
+                      dispatch(
+                        addToCartProduct({
+                          id: product._id,
+                          size: product?.variants?.[0]?.sizes?.[0]?.size || null,
+                          color: product?.variants?.[0]?.color || null,
+                          quantity: 1
+                        }),
+                      )
+                    }
+                  >
                     <Handbag size={18} />
                   </button>
                 </div>

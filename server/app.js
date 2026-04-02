@@ -5,6 +5,7 @@ import authRouter from "./routes/authRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import wishlistRouter from "./routes/wishlistRoute.js";
 import cartRouter from './routes/cartRoutes.js'
+import orderRouter from "./routes/orderRoute.js";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).json({

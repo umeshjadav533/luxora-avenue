@@ -23,3 +23,9 @@ export const removeCartProduct = createApiThunk(
     "delete",
     "/cart/remove"
 );
+
+export const fetchCartSummary = createApiThunk(
+    "cart_summary",
+    "get",
+    "/cart/cart-summary"
+)

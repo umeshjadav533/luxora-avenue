@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { kidsPageMenu, menPageMenu, womenPageMenu } from "../assets/assets";
-import { Handbag, Heart, Search, SunMedium, User } from "lucide-react";
+import { Handbag, Heart, Search, User } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import { openCart } from "../features/cart/cartSlice";
 // import { toggleCart } from "../features/cart/cartSlice.js";
 
 export default function NavigationBar() {
@@ -10,7 +11,7 @@ export default function NavigationBar() {
   const [lastScroll, setLastScroll] = useState(0);
   const [hoverLink, setHoverLink] = useState(false);
   const dispatch = useDispatch();
-  // const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const { cartProducts } = useSelector((state) => state.cart);
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
@@ -177,12 +178,9 @@ export default function NavigationBar() {
       {/* Right Side Links */}
       <ul className="flex justify-center items-center gap-5">
         <li className="cursor-pointer">
-          <Link to="/search">
+          <Link to="/product/search">
             <Search size={20} />
           </Link>
-        </li>
-        <li className="cursor-pointer">
-          <SunMedium size={20} />
         </li>
         <li>
           <Link to="/account">
@@ -196,14 +194,14 @@ export default function NavigationBar() {
         </li>
         <li className="flex justify-center items-center">
           <button
-            // onClick={() => dispatch(toggleCart())}
+            onClick={() => dispatch(openCart())}
             className="cursor-pointer relative"
           >
             <span>
               <Handbag  size={20} />
             </span>
             <span className="absolute -bottom-2 bg-black text-white rounded-full px-1 text-xs outfit-font">
-              {/* {cartProducts.length} */}
+              {cartProducts.length}
             </span>
           </button>
         </li>

@@ -13,7 +13,6 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(fetchAllProducts({ page: 1, limit: 16 }));
   }, [dispatch]);
-  console.log(productsData?.products);
   return (
     <div className="p-3 mt-8">
       <HeroSection />

@@ -130,11 +130,12 @@ export const getSearchProducts = asyncHandler(async (req, res, next) => {
     maxPrice,
     rating,
     page = 1,
-    limit = 5,
+    limit = 50,
   } = req.query;
 
   let filter = {};
 
+  // Search by general query across multiple fields
   if (query) {
     filter.$or = [
       { title: { $regex: query, $options: "i" } },
@@ -143,21 +144,14 @@ export const getSearchProducts = asyncHandler(async (req, res, next) => {
       { tags: { $regex: query, $options: "i" } },
       { category: { $regex: query, $options: "i" } },
       { subCategory: { $regex: query, $options: "i" } },
-      { brand: { $regex: query, $options: "i" } },
     ];
   }
 
-  if (catgeoyr) filter.category = category;
-
-  if (subCategory) filter.subCategory = subCategory;
-
-  if (brand) {
-    filter.brand = { $in: brand.split(",") };
-  }
-
-  if (tags) {
-    filter.tags = { $in: tags.split(",") };
-  }
+  // Filters
+  if (category) filter.category = category.toLowerCase();
+  if (subCategory) filter.subCategory = subCategory.toLowerCase();
+  if (brand) filter.brand = { $in: brand.split(",").map((b) => b.toLowerCase()) };
+  if (tags) filter.tags = { $in: tags.split(",").map((t) => t.toLowerCase()) };
 
   if (minPrice || maxPrice) {
     filter["variants.mrpPrice"] = {};
@@ -165,15 +159,17 @@ export const getSearchProducts = asyncHandler(async (req, res, next) => {
     if (maxPrice) filter["variants.mrpPrice"].$lte = Number(maxPrice);
   }
 
-  if (rating) {
-    filter.rating = { $gte: Number(rating) };
-  }
+  if (rating) filter.rating = { $gte: Number(rating) };
 
   const products = await Product.paginate(filter, {
     page: Number(page),
     limit: Number(limit),
     sort: { createdAt: -1 },
   });
+
+  if (!products.docs || products.docs.length === 0) {
+    return next(new ErrorHandler("No Products Found", 404));
+  }
 
   res.status(200).json({
     success: true,

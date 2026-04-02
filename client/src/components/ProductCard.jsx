@@ -4,7 +4,6 @@ import Rating from "./Rating";
 import calculateSellingPrice from "../utils/priceUtil";
 
 const ProductCard = ({ product }) => {
-  console.log(product?.variants?.[0]?.mrpPrice);
   return (
     <div className="bg-white rounded-xl overflow-hidden ">
       <div className="h-100 relative overflow-hidden">
@@ -31,7 +30,7 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       {/*  Prodct Information */}
-      <div className="w-full h-20 overflow-hidden flex flex-col justify-end gap-1 p-2">
+      <div className="w-full h-25 overflow-hidden flex flex-col justify-end gap-1 p-2">
         <p className="truncate-title text-gray-900">{product.title}</p>
         <div className="flex justify-between">
           <div>

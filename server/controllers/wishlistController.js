@@ -45,7 +45,6 @@ export const getWishlistProducts = asyncHandler(async (req, res, next) => {
       color: selectedVariant?.color,
       images: selectedVariant?.images,
       size: selectedSize ? selectedSize?.size : null,
-      stock: selectedSize ? selectedSize?.stock : selectedVariant.stock,
       mrpPrice: selectedVariant?.mrpPrice,
       discount: selectedVariant?.discountPercentage
     };
@@ -120,7 +119,7 @@ export const toggleWishlistProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    products: formatProductResponse(populatedWishlist.items || [], false),
+    products: formatProductResponse(populatedWishlist.items || []),
     message: existingProduct ? "Removed from wishlist" : "Added to wishlist",
   });
 });

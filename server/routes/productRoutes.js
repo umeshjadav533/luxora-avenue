@@ -19,7 +19,7 @@ productRouter.get(
   getProductsForNavigationLinkPage,
 );
 productRouter.post("/tag", isAuthenticated, getProductsByTag);
-productRouter.get("/search", isAuthenticated, getSearchProducts);
+productRouter.get("/filter/search", isAuthenticated, getSearchProducts);
 productRouter.get("/filter/product-filter", isAuthenticated, getFilterOptions);
 
 export default productRouter;

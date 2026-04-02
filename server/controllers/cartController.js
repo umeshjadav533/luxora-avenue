@@ -135,7 +135,7 @@ export const addToCart = asyncHandler(async (req, res, next) => {
 // ----------------- UPDATE CART PRODUCT -----------------
 export const updateCartProduct = asyncHandler(async (req, res, next) => {
   const { id, size, color, quantity, type } = req.body;
-
+  
   const qty = Number(quantity);
 
   if (!id || !qty) {
@@ -224,7 +224,7 @@ export const updateCartProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    cart: formatProductResponse(populatedCart.items || []),
+    cartProducts: formatProductResponse(populatedCart.items || []),
   });
 });
 
@@ -278,7 +278,7 @@ export const removeCartProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    cart: formatProductResponse(populatedCart.items || []),
+    cartProducts: formatProductResponse(populatedCart.items || []),
   });
 });
 
@@ -305,7 +305,6 @@ export const getCartSummary = asyncHandler(async (req, res, next) => {
     const variant = product.variants?.find(
       (v) => v.color?.toLowerCase() === item.color?.toLowerCase()
     );
-
     if (!variant) return;
 
     // Find size (optional)
@@ -316,18 +315,17 @@ export const getCartSummary = asyncHandler(async (req, res, next) => {
       );
     }
 
-    // Stock check (optional but industry level)
-    let availableStock = sizeObj?.stock ?? variant.stock;
+    // Stock check
+    const availableStock = sizeObj?.stock ?? variant.stock ?? 0;
     if (item.quantity > availableStock) {
-      item.quantity = availableStock; // auto-fix (optional)
+      item.quantity = availableStock; // auto-fix
     }
 
     const mrp = variant.mrpPrice || 0;
     const discountPercent = variant.discountPercentage || 0;
 
-    // Calculate selling price
+    // Selling price calculation (make sure getSellingPrice exists)
     const price = getSellingPrice(mrp, discountPercent);
-
     const qty = item.quantity;
 
     // Totals
@@ -335,18 +333,14 @@ export const getCartSummary = asyncHandler(async (req, res, next) => {
     totalItems += qty;
 
     // Discount amount
-    discount += ((mrp - price) * qty);
+    discount += (mrp - price) * qty;
   });
 
   // Shipping
-  const shipping = subTotal > 0 && subTotal < 499 ? 40 : 0;
+  const shipping = subTotal > 0 && subTotal < 500 ? 40 : 0;
 
-  // GST
-  const taxRate = 0.18;
-  const tax = Number((subTotal * taxRate).toFixed(2));
-
-  // Final Total
-  const total = Number((subTotal + tax + shipping).toFixed(2));
+  // Final total
+  const total = Number((subTotal + shipping).toFixed(2));
 
   res.status(200).json({
     success: true,
@@ -354,7 +348,6 @@ export const getCartSummary = asyncHandler(async (req, res, next) => {
       totalProducts: totalItems,
       subTotal: Number(subTotal.toFixed(2)),
       discount: Number(discount.toFixed(2)),
-      tax,
       shipping,
       total,
     },

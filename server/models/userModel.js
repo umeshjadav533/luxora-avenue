@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 2,
       maxlength: 50,
-      lowercase: true
+      lowercase: true,
     },
     last_name: {
       type: String,
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 2,
       maxlength: 50,
-      lowercase: true
+      lowercase: true,
     },
     email: {
       type: String,
@@ -53,9 +53,12 @@ const userSchema = new mongoose.Schema(
     },
     address: [
       {
-        type: String,
-        trim: true,
-        lowercase: true,
+        street: { type: String, trim: true, lowercase: true },
+        city: { type: String, trim: true, lowercase: true },
+        state: { type: String, trim: true, lowercase: true },
+        country: { type: String, trim: true, lowercase: true },
+        pincode: { type: String, trim: true },
+        isDefault: { type: Boolean, default: false }
       },
     ],
     isVerified: {
@@ -84,26 +87,26 @@ userSchema.methods.generateToken = function () {
 };
 
 // Hash Password
-userSchema.pre("save", async function() {
-    if(!this.isModified("password")) return;
-    return (this.password = await bcrypt.hash(this.password, 10));
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  return (this.password = await bcrypt.hash(this.password, 10));
 });
 
 // Compare Password
-userSchema.methods.comparePassword = async function(enteredPassword){
-    return await bcrypt.compare(enteredPassword, this.password);
-}
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 // Reset Password
-userSchema.methods.getResetPasswordToken = function(){
-    const resetToken = crypto.randomBytes(20).toString("hex");
-    this.resetPasswordToken = crypto
+userSchema.methods.getResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+  this.resetPasswordToken = crypto
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
   this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
   return resetToken;
-}
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;

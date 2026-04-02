@@ -1,6 +1,6 @@
 import { getSellingPrice } from "./priceUtils.js";
 
-const formatProductResponse = (items, showQuantity = true) => {
+const formatProductResponse = (items) => {
   return items.map((item) => {
     const product = item.product;
 
@@ -38,9 +38,9 @@ const formatProductResponse = (items, showQuantity = true) => {
       mrpPrice: selectedVariant?.mrpPrice,
       discount: selectedVariant?.discountPercentage || 0,
 
-      if(showQuantity){
+      // if(showQuantity){
         quantity: item.quantity
-      }
+      // }
     };
   });
 };

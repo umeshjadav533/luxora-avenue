@@ -9,6 +9,8 @@ import LoginPage from "./pages/LoginPage";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { userProfile } from "./features/auth/authAPI";
+import WishlistPage from "./pages/WishlistPage";
+import SearchPage from "./pages/SearchPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,6 +47,8 @@ const App = () => {
             </ProtectedRoute>
           }>
             <Route path="/" element={<HomePage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/product/search" element={<SearchPage />} />
           </Route>
       </Routes>
     </BrowserRouter>
