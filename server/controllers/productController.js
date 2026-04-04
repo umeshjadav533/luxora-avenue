@@ -50,40 +50,38 @@ export const getProductById = asyncHandler(async (req, res, next) => {
 });
 
 // ----------------- GET PRODUCTS BY CATEGORY -----------------
-export const getProductsForNavigationLinkPage = asyncHandler(
-  async (req, res, next) => {
-    const { category } = req.params;
-    if (!category)
-      return next(new ErrorHandler("Please provide category page", 400));
+export const getRelatedProducts = asyncHandler(async (req, res, next) => {
+  let { subCategory, page, limit } = req.body;
+  console.log(subCategory, page, limit);
+  if (!subCategory) {
+    return next(new ErrorHandler("Please provide sub category", 400));
+  }
 
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 5;
+  page = parseInt(page) || 1;
+  limit = parseInt(limit) || 5;
 
-    const products = await Product.paginate(
-      { category: category.toLowerCase() },
-      { page, limit, sort: { createdAt: -1 } },
-    );
+  const products = await Product.paginate(
+    { subCategory: subCategory.toLowerCase() },
+    { page, limit, sort: { createdAt: -1 } }
+  );
 
-    if (!products.docs || products.docs.length === 0) {
-      return next(new ErrorHandler("No Products Found", 404));
-    }
+  console.log(products);
 
-    res.status(200).json({
-      success: true,
-      products: products.docs,
-      meta: {
-        totalDocs: products.totalDocs,
-        limit: products.limit,
-        totalPages: products.totalPages,
-        currentPage: products.page,
-        hasPrevPage: products.hasPrevPage,
-        hasNextPage: products.hasNextPage,
-        prevPage: products.prevPage,
-        nextPage: products.nextPage,
-      },
-    });
-  },
-);
+  res.status(200).json({
+    success: true,
+    products: products.docs,
+    meta: {
+      totalDocs: products.totalDocs,
+      limit: products.limit,
+      totalPages: products.totalPages,
+      currentPage: products.page,
+      hasPrevPage: products.hasPrevPage,
+      hasNextPage: products.hasNextPage,
+      prevPage: products.prevPage,
+      nextPage: products.nextPage,
+    },
+  });
+});
 
 // ----------------- GET PRODUCTS BY TAG -----------------
 export const getProductsByTag = asyncHandler(async (req, res, next) => {
@@ -202,3 +200,4 @@ export const getFilterOptions = asyncHandler(async (req, res, next) => {
     tags,
   });
 });
+

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllProducts,
   fetchProductById,
-  fetchProductsForNavigationLinkPage,
+  fetchRelatedProducts,
   fetchSearchProducts,
   fetchSearchProductsFilter,
   fetchTagProducts,
@@ -29,7 +29,7 @@ const initialState = {
     loading: false,
   },
 
-  categoryProductsData: {
+  relatedProductsData: {
     products: [],
     meta: {
       totalDocs: 0,
@@ -125,24 +125,24 @@ const productSlice = createSlice({
       })
 
       // =============== FETCH CATEGORY PRODUCTS ===============
-      .addCase(fetchProductsForNavigationLinkPage.pending, (state) => {
-        state.categoryProductsData.loading = true;
+      .addCase(fetchRelatedProducts.pending, (state) => {
+        state.relatedProductsData.loading = true;
         state.error = null;
       })
       .addCase(
-        fetchProductsForNavigationLinkPage.fulfilled,
+        fetchRelatedProducts.fulfilled,
         (state, action) => {
-          state.categoryProductsData.loading = false;
-          state.categoryProductsData.products =
+          state.relatedProductsData.loading = false;
+          state.relatedProductsData.products =
             action.payload?.products || [];
-          state.categoryProductsData.meta =
-            action.payload?.meta || state.categoryProductsData.meta;
+          state.relatedProductsData.meta =
+            action.payload?.meta || state.relatedProductsData.meta;
           state.error = null;
         },
       )
-      .addCase(fetchProductsForNavigationLinkPage.rejected, (state, action) => {
-        state.categoryProductsData.loading = false;
-        state.categoryProductsData.products = [];
+      .addCase(fetchRelatedProducts.rejected, (state, action) => {
+        state.relatedProductsData.loading = false;
+        state.relatedProductsData.products = [];
         state.error = action.error?.message || null;
       })
 

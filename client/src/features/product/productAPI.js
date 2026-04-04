@@ -12,11 +12,10 @@ export const fetchProductById = createApiThunk(
   (data) => `/product/${data.id}`,
 );
 
-export const fetchProductsForNavigationLinkPage = createApiThunk(
-  "page_category",
-  "get",
-  (data) =>
-    `/product/page/${data.category}?page=${data.page}&limit=${data.limit}`,
+export const fetchRelatedProducts = createApiThunk(
+  "related_product",
+  "post",
+  '/product/related-products'
 );
 
 export const fetchTagProducts = createApiThunk(
